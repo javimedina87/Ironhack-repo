@@ -159,3 +159,13 @@ progress::-moz-progress-bar {
 .artist-name {
   color: red;
 }
+
+.spotify-form {
+  background: #ccc;
+  border-radius: 0px 0px 5px 5px;
+  padding: 10px;
+  text-align: center;
+}
+
+
+

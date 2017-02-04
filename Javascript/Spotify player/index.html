@@ -1,16 +1,10 @@
 <html>
 <head>
 	<title>Spotify player</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
-  <form>
-    <label for="">Song name:</label>
-    <input type="text" name=song>
-    <input type="submit" value="Find it!">
-  </form>
 
   <div class="widget">
 	<div class="header">
@@ -31,6 +25,11 @@
 	</div>
 
 	<audio class="js-player"></audio>
+
+      <form class="spotify-form">
+        <input type="text" name=song class="form-class">
+        <input type="submit" class="form-class btn btn-warning" value="Find song!">
+      </form>
   </div>
 
 

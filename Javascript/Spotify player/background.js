@@ -1,34 +1,43 @@
+//Hide modal
 $('.js-modal').modal("hide");
 
 $(document).ready(function() {  
-  $('form').on('submit',function(e) {    
-    e.preventDefault();
-    var songName = $('input[name=song]').val();
-    $.ajax({
-     url: "https://api.spotify.com/v1/search?type=track&query=" + songName,            
-     success: function(data){
-      console.clear();
-      console.log("Cancion buscada: " + songName);
-      showTrackInfo(data.tracks.items[0]);
-     },     
-     error: function(error) {        
-      console.clear();    
-      console.log("Cancion buscado: " + songName);   
-      console.log("¡ ¡ ¡ ¡ ¡ ¡ ¡ ERROR canción! ! ! ! ! ! ! !");                 
-      console.log(error.responseText);
-      },         
-    }); 
-  }); 
+  //Intialize default song
+  defaultSong();
 });
 
-function showTrackInfo (track) {
-  console.log(track);
+function defaultSong(){
+  retrieveSpotifyInfo("track","Despacito", showTrackInfo);
+}
 
+//Form listener
+$('form').on('submit',function(e) {    
+  e.preventDefault();
+  var songName = $('input[name=song]').val();
+  retrieveSpotifyInfo("track", songName, showTrackInfo);
+}); 
+
+//Ajax 
+function retrieveSpotifyInfo(category, element, callback){
+    $.ajax({
+     url: "https://api.spotify.com/v1/search?type=" + category + "&query=" + element,            
+     success: callback,
+     error: errorSpotifyAPI                     
+    }); 
+}
+
+function showTrackInfo (data) {
+  var track = data.tracks.items[0];
+
+  //Set attributes
   var trackName = track.name;
   var artistName = track.artists[0].name;
   var albumUrl = track.album.images[0].url;
   var previewUrl = track.preview_url;
-  
+    
+  //Reset previous html tags
+  emptyTags();
+
   $('.title').append(trackName);
   $('.author').append(artistName);
   $('.cover img').attr("src",albumUrl);
@@ -36,6 +45,15 @@ function showTrackInfo (track) {
 
   //Enable play button
   $('.btn-play').removeClass('disabled');
+}
+
+function errorSpotifyAPI (error){
+  console.log(error.responseText);
+}
+
+function emptyTags(){
+  $('.title').empty();
+  $('.author').empty();
 }
 
 //Playing / Pause mode
@@ -58,46 +76,26 @@ function printTime () {
       console.debug('Current time: ' + Math.trunc(current));
 }
 
-
 //Show modal
 $('.author').on('click',function(e) {
   var authorName = $('.author').text();
-
-  $.ajax({
-   url: "https://api.spotify.com/v1/search?type=artist&query=" + authorName,            
-   success: function(data){
-    var artist = data.artists.items[0];
-    showArtistInfo(artist);
-    $('.js-modal').modal("show");
-   },     
-   error: function(error) {        
-    console.log("¡ ¡ ¡ ¡ ¡ ¡ ¡ ERROR artista ! ! ! ! ! ! ! !");                 
-    console.log("Artista buscado: " + authorName);   
-    console.log(error.responseText);
-    },         
-  }); 
-
+  retrieveSpotifyInfo("artist", authorName, showArtistInfo);
 }); 
 
-function showArtistInfo (artist) {
-  console.log(artist);
+function showArtistInfo (data) {
+  var artist = data.artists.items[0];
 
-  // var trackName = track.name;
   var artistName = artist.name;
   var artistImage = artist.images[3].url;
   var artistGenre = artist.genres[1];
   var artistFollowers = artist.followers.total;
   var artistPopularity = artist.popularity;
-  // var previewUrl = track.preview_url;
-  
-  // $('.title').append(trackName);
+
   $('.artist-name').append(artistName);
   $('.artist-image img').attr("src",artistImage);
   $('.artist-genre').append(artistGenre);
   $('.artist-followers').append(artistFollowers);
   $('.artist-popularity').append(artistPopularity);
-  // $('audio').attr("src",previewUrl);
+
+  $('.js-modal').modal("show");
 }
-
-
-// `<a href="#">${variable}</a>
