@@ -1,0 +1,77 @@
+<html>
+<head>
+	<title>Spotify player</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+  <form>
+    <label for="">Song name:</label>
+    <input type="text" name=song>
+    <input type="submit" value="Find it!">
+  </form>
+
+  <div class="widget">
+	<div class="header">
+
+	<div class="btn-play disabled"></div>
+
+	<div class="metadata">
+	  <p class="title"></p>
+	  <p class="author clickable" ></p>
+
+	  <div class="seekbar">
+	    <progress max="30"></progress>
+	  </div>
+	</div>
+	</div>
+	<div class="cover">
+		<img>
+	</div>
+
+	<audio class="js-player"></audio>
+  </div>
+
+
+  <!-- Spotify Modal -->
+  <div class="modal fade js-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <!-- Close button -->
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span>&times;</span>
+          </button>
+
+          <h2>This is the modal's header.</h2>
+        </div>
+
+        <div class="modal-body">
+          <p>This is the modal's body.</p>
+        </div>
+        
+
+        <p class="artist-name" ></p>
+
+        <div class="artist-image">
+          <img>
+        </div>
+
+        <p class="artist-genre" >Genero: </p>
+
+        <p class="artist-followers" >Seguidores: </p>
+
+        <p class="artist-popularity" >Popularity</p>
+
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="background.js"></script>
+</body>
+</html>
